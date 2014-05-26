@@ -28,14 +28,18 @@
 		}
 		,evaluationView:t.loginRequiredView(function(){
 			
-			// 評分初始化
+			// parse 初始化
 			var t=Parse.Object.extend("Evaluation");
 			var n=Parse.User.current();
 			var r=new Parse.ACL;
+			
+			// parse ACL 讀寫權限
 			r.setPublicReadAccess(false);
 			r.setPublicWriteAccess(false);
 			r.setReadAccess(n,true);
 			r.setWriteAccess(n,true);
+			
+			// handler, parse query
 			var i=new Parse.Query(t);
 			i.equalTo("user",n);
 			i.first({success:function(i){window.EVAL=i;if(i===undefined){
@@ -114,7 +118,7 @@
 					var r=Parse.Router.extend({routes:{"":"indexView","peer-evaluation/":"evaluationView","login/*redirect":"loginView"}
 						,indexView:n.evaluationView,evaluationView:n.evaluationView,loginView:n.loginView});
 					
-					//router 活起來
+					//讓 router 活起來
 					this.Router=new r;
 					Parse.history.start();
 })();
