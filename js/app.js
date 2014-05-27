@@ -14,7 +14,7 @@
 	};
 
 	// handler 控制 navbar 顯示 button
-	var n={navbar:function(){
+	var handler={navbar:function(){
 		var e=Parse.User.current();
 		if(e){document.getElementById("loginButton").style.display="none";
 			document.getElementById("logoutButton").style.display="block";
@@ -24,7 +24,7 @@
 			document.getElementById("logoutButton").style.display="none";
 			document.getElementById("evaluationButton").style.display="none"}
 
-			document.getElementById("logoutButton").addEventListener("click",function(){Parse.User.logOut();n.navbar();window.location.hash="login/"})
+			document.getElementById("logoutButton").addEventListener("click",function(){Parse.User.logOut();handler.navbar();window.location.hash="login/"})
 		}
 		,evaluationView:t.loginRequiredView(function(){
 			
@@ -121,4 +121,5 @@
 					//讓 router 活起來
 					this.Router=new r;
 					Parse.history.start();
+					handler.navbar()
 })();
